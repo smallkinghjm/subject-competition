@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.glut.competition.mapper.CompetitionEventMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.glut.competition.entity.CompetitionEvent">
+        <id column="competition_id" property="competitionId" />
+        <result column="competition_name" property="competitionName" />
+        <result column="competition_content" property="competitionContent" />
+        <result column="competition_start_registration" property="competitionStartRegistration" />
+        <result column="competition_end_registration" property="competitionEndRegistration" />
+        <result column="competition_begin" property="competitionBegin" />
+        <result column="competition_finish" property="competitionFinish" />
+        <result column="competition_stamp" property="competitionStamp" />
+        <result column="competition_enclosure" property="competitionEnclosure" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        competition_id, competition_name, competition_content, competition_start_registration, competition_end_registration, competition_begin, competition_finish, competition_stamp, competition_enclosure
+    </sql>
+
+</mapper>

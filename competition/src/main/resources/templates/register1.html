@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="../layui/css/layui.css"  type="text/css" >
+    <script type="text/javascript" src="../layui/layui.js"></script>
+
+    <style>
+        .layui-form-item .layui-input-inline {
+            width: 74.6%;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="layui-container">
+        <div class="layui-col-md5 layui-col-md-offset3">
+            <div class="grid-demo grid-demo-bg1">
+                <form class="layui-form"  method="post" style="vertical-align:middle;"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+                    </br></br>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="studentId" id="studentId" placeholder="请输入学号" autocomplete="off" lay-verify="required|id|isExist" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="studentName" id="studentName" placeholder="请输入姓名" lay-verify="required|name" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="studentPassword" id="studentPassword" lay-verify="required|password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">确认密码</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="checkStudentPassword" id="checkStudentPassword" lay-verify="required|checkPassword" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">年级</label>
+                        <div class="layui-input-inline">
+                            <select name="studentGrade" id="studentGrade" lay-verify="required" lay-search="">
+                                <option value="">请选择所属年级</option>
+                                <option value="1">大一</option>
+                                <option value="2">大二</option>
+                                <option value="3">大三</option>
+                                <option value="4">大四</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学院</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="studentFaculty" id="studentFaculty" lay-verify="required" placeholder="请输入所属学院,如:信息科学与工程学院" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">班级</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="studentClass" id="studentClass" lay-verify="required" placeholder="请输入所属班级，如：软件工程2017-2班" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="studentGender" value="0" title="男">
+                            <input type="radio" name="studentGender" value="1" title="女" checked="checked">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">验证码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="verifyCode" id="verifyCode" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <img src="/student/getVerify" id="imgCode"  onclick="function getVerify() {
+                                 $('#imgCode').attr('src', '/student/getVerify/?' + Math.random());
+                            }
+                            getVerify()">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" id="StudentRegister" lay-submit lay-filter="*">立即注册</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="../layui/layui.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script>
+
+        $(function () {
+            $("#studentId").bind("blur",function () {
+                var v_studentId=$(this).val()
+                $.ajax({
+                    type:"POST",
+                    url:"/student/checkId",
+                    data:"studentId="+v_studentId,
+                    datatype:"json",
+                    success:function (data) {
+                        if(data==true){
+                            layer.msg('用户名已存在,请重新输入', {icon: 5});
+                        }
+                    },
+                    error:function () {
+                        layer.msg('系统出错，请稍后登录', {icon: 5});
+                    }
+                })
+            })
+        })
+
+        layui.use('form', function(){
+            var form = layui.form;
+            //自定义验证规则
+            form.verify({
+                id:[/^\d{13}$/
+                    ,'学号必须为13位数字'],
+                name:[/^[\u4e00-\u9fa5]*$/
+                    ,'姓名必须为汉字'],
+                password: [
+                    /^[\S]{6,20}$/
+                    ,'密码必须6到12位，且不能出现空格'],
+                checkPassword:function(value) {
+                    if ($('input[name=studentPassword]').val() !== value)
+                        return '两次密码输入不一致！';
+                },
+
+                });
+        });
+        $(function () {
+            $("#StudentRegister").on("click",function () {
+                $.ajax({
+                    type:"POST",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"/student/register",
+                    data:{
+                        "studentId":$("#studentId").val(),
+                        "studentName":$("#studentName").val(),
+                        "studentPassword":$("#studentPassword").val(),
+                        "studentGrade":$("#studentGrade").val(),
+                        "studentFaculty":$("#studentFaculty").val(),
+                        "studentClass":$("#studentClass").val(),
+                        "studentGender":$(":checked").val(),
+                        "verifyCode":$("#verifyCode").val()
+                    },
+                    success:function (data) {
+                        //alert(JSON.stringify(data))
+                        if (data.status=="success"){
+
+                        }else {
+                            //layer.msg('验证码错误', {icon: 5});
+                            alert(JSON.stringify(data))
+                        }
+                    },
+                    error:function (data) {
+                        layer.msg('系统错误', {icon: 5});
+                    }
+                });
+                return false;
+            })
+
+
+        })
+
+    </script>
+
+</body>
+</html>
+
