@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.glut.competition.mapper.EnclosureMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.glut.competition.entity.Enclosure">
+        <id column="enclosure_id" property="enclosureId" />
+        <result column="enclosure_name" property="enclosureName" />
+        <result column="enclosure_content" property="enclosureContent" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        enclosure_id, enclosure_name, enclosure_content
+    </sql>
+
+</mapper>
