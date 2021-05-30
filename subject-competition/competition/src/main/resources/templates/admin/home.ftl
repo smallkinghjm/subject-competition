@@ -23,7 +23,7 @@
             elem: '#test'
             ,url:'/admin/events?type=0'
             ,title: '赛事通告数据表'
-            ,toolbar: `<div><button type="button" onclick="window.location.href='<@com.path/>/admin/event/create'"  class="layui-btn layui-btn-sm" style="width: 90px;">新建</button></div>`
+            ,toolbar: `<div><button type="button" onclick="window.location.href='<@com.path/>/admin/event/create'"  class="layui-btn layui-btn-sm layui-btn-primary layui-border-orange" style="width: 90px;">新建</button></div>`
             ,defaultToolbar: ['filter', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                     id:'refresh',
                     title: '刷新'

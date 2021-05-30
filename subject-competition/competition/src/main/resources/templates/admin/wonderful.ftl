@@ -23,7 +23,7 @@
             elem: '#test'
             ,url:'/admin/events?type=3'
             ,title: '赛事风采数据表'
-            ,toolbar: `<div><button type="button" onclick="window.location.href='<@com.path/>/admin/wonderful/create'"  class="layui-btn layui-btn-sm" style="width: 90px;">新建</button></div>`
+            ,toolbar: `<div><button type="button" onclick="window.location.href='<@com.path/>/admin/wonderful/create'"  class="layui-btn layui-btn-sm layui-btn-primary layui-border-orange" style="width: 90px;">新建</button></div>`
             ,defaultToolbar: ['filter', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 id:'refresh',
                 title: '刷新'
@@ -63,7 +63,7 @@
                 ,{field:'updateTime', title:'修改时间',width:"19%",
                     templet: function(res){
                         return layui.util.toDateString(res.updateTime, "yyyy-MM-dd HH:mm:ss");}}
-                ,{field:'enclosureName', title:'附件名称',width:"12%"}
+                ,{field:'enclosureName', title:'封面',width:"12%"}
                 ,{fixed:'right',title:'操作',width:"15%", toolbar: '#barDemo'}
             ]]
 
@@ -99,7 +99,7 @@
                 });
             } else if(obj.event === 'edit'){
                 //点击编辑按钮实现跳转编辑页面
-                $("a.layui-btn-normal").attr("href","/admin/event/update/"+data.eventId);
+                $("a.layui-btn-normal").attr("href","/admin/wonderful/update/"+data.eventId);
             }
         });
     });

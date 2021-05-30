@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public interface IEnclosureService extends IService<Enclosure> {
     String upload(MultipartFile file) throws BusinessException;
-    boolean deleteFile(String fileName) throws BusinessException;
+    void deleteFile(String fileName) throws BusinessException;
     Enclosure getEnclosure(String enclosureName);
     void delete(String enclosureName) throws BusinessException;
     Map<String,Object> coverUpload(MultipartFile file) throws BusinessException;

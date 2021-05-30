@@ -24,4 +24,5 @@ public interface IContestService extends IService<Contest> {
     Contest getContestById(long contestId) throws BusinessException;
     void update(Contest contest) throws BusinessException;
     void delete(long contestId);
+    void deleteEnclosure(String fileName) throws BusinessException;
 }

@@ -92,57 +92,61 @@
 </head>
 <body>
 <div class="layui-container">
-    <div class="layui-fluid">
-        <fieldset class="layui-elem-field layui-field-title">
-            <legend style="text-align: center">新内容编辑</legend>
-        </fieldset>
-        <div class="layui-row">
-            <form class="layui-form" method="post" enctype="multipart/form-data">
-                <div class="layui-form-item">
-                    <div class="layui-col-sm8">
-                        <label class="layui-form-label">标&nbsp&nbsp&nbsp&nbsp题</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" id="title" placeholder="标题" autocomplete="off" lay-verify="required" lay-reqtext="不能为空" class="layui-input" >
-                        </div>
-                    </div>
-                    <div class="layui-col-sm4">
-                        <label class="layui-form-label">类&nbsp&nbsp&nbsp&nbsp 型</label>
-                        <div class="layui-input-inline" style="position: relative;z-index: 10002!important;">
-                            <select name="type" id="type" lay-verify="required" lay-search="" >
-                                <option value="">请选择发布的类型</option>
-                                <option value="0">公告通知</option>
-                                <option value="1">比赛结果</option>
-                                <option value="2">赛事总结</option>
-                            </select>
-                        </div>
-                    </div>
+    <@com.nav2/>
+    <div class="ax-flex-row ax-admin">
+        <div>
+            <nav class="ax-flex-col">
+                <a  class="ax-close-nav-all"><span class="ax-iconfont ax-icon-left"></span></a>
+                <div class="ax-nav-header">
+                    <a  class="ax-close-nav ax-iconfont ax-icon-menu-fold"></a>
                 </div>
-                <div class="layui-form-item" >
-                    <@com.editorContent/>
-
+                <div class="ax-flex-block ax-nav-main">
+                    <@com.admin/>
                 </div>
-                <div class="layui-form-item">
-                    <div class="layui-row layui-col-space1">
-                        <div class="layui-input-block">
-                            <div class="layui-col-md3">
-                                <button type="button" class="layui-btn" id="enclosure"><i class="layui-icon"></i>上传附件</button>
+            </nav>
+        </div>
+        <div class="ax-flex-block ax-body">
+            <div class="ax-flex-col" style="padding-left: 20px;padding-top: 30px;">
+                <form class="layui-form" method="post" enctype="multipart/form-data">
+                    <div class="layui-form-item">
+                        <div class="layui-col-sm6">
+                            <label class="layui-form-label" style="float:left">标&nbsp&nbsp&nbsp&nbsp题</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" id="title" placeholder="标题" autocomplete="off" lay-verify="required" lay-reqtext="不能为空" class="layui-input"  >
                             </div>
-                            <div class="layui-col-md3 layui-col-md-offset6">
+                        </div>
+                        <div class="layui-col-sm6">
+                            <label class="layui-form-label">类&nbsp&nbsp&nbsp&nbsp型</label>
+                            <div class="layui-input-inline" style="position: relative;z-index: 10002!important;">
+                                <select name="type" id="type" lay-verify="required" lay-search="" >
+                                    <option value="">请选择发布的类型</option>
+                                    <option value="0">公告通知</option>
+                                    <option value="1">比赛结果</option>
+                                    <option value="2">赛事总结</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" >
+                        <@com.editorContent/>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-row">
+                            <div class="layui-col-md9">
+                                <button type="button" class="layui-btn layui-btn-primary layui-border-green" id="enclosure"><i class="layui-icon"></i>上传附件</button>
+                                <button type="button" 	class="layui-btn layui-btn-primary layui-border-red" id="delfile" onclick="delFile();">删除附件</button>
+                                <input type="text" id="fileName" name="fileName" readonly="readonly" value="" style="width: 420px;border-style:none;">
+                            </div>
+                            <div class="layui-col-md3 ">
                                 <input type="button" class="layui-btn" id="btn" value="发布" lay-submit lay-filter="*">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="layui-row layui-col-space1">
-                    <div class="layui-input-block">
-                            <input type="text" id="fileName" name="fileName" readonly="readonly" value="" style="height: 30px;width: 400px">
-                            <button type="button" 	class="layui-btn layui-btn-danger" id="delfile" onclick="delFile();">删除附件</button>
-                    </div>
-                </div>
-
-            </form>
+                </form>
+            </div>
         </div>
     </div>
+
 </div>
 </body>
 <@com.wangEditor/>

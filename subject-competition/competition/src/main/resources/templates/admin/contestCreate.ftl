@@ -51,7 +51,7 @@
                     if(confirm("确实要删除吗？")){
                         $.ajax({
                             type:"POST",
-                            url:"/enclosure/delFile",
+                            url:"/enclosure/deleteFile",
                             data:{fileName:$("#fileName").val()},
                             dataType:"json",
                             success:function (data) {
@@ -86,6 +86,7 @@
                     success:function (data) {
                         if (data.status=="success"){
                             alert("发布成功");
+                            window.location.href="<@com.path/>/admin/contest";
                         }else {
                             alert("发布失败，"+data.data);
                             console.log(data.data);
@@ -102,71 +103,75 @@
 </head>
 <body style="background-color: #ffffff">
 <div class="layui-container">
-    <div class="layui-fluid">
-        <fieldset class="layui-elem-field layui-field-title">
-            <legend style="text-align: center">赛事编辑</legend>
-        </fieldset>
-        <div class="layui-row">
-            <form class="layui-form" method="post" enctype="multipart/form-data">
-                <div class="layui-form-item">
-                    <div class="layui-col-sm10">
-                        <label class="layui-form-label">标&nbsp&nbsp&nbsp&nbsp题</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="contestName" id="title" placeholder="标题" autocomplete="off" lay-verify="required" lay-reqtext="不能为空" class="layui-input" >
-                        </div>
-                    </div>
+    <@com.nav2/>
+    <div class="ax-flex-row ax-admin">
+        <div>
+            <nav class="ax-flex-col">
+                <a  class="ax-close-nav-all"><span class="ax-iconfont ax-icon-left"></span></a>
+                <div class="ax-nav-header">
+                    <a  class="ax-close-nav ax-iconfont ax-icon-menu-fold"></a>
                 </div>
-                <div class="layui-form-item">
-                    <div class="layui-col-sm4">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">开始时间</label>
-                            <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="startTime"  placeholder="yyyy-MM-dd" lay-verify="required" lay-reqtext="不能为空">
+                <div class="ax-flex-block ax-nav-main">
+                    <@com.admin/>
+                </div>
+            </nav>
+        </div>
+        <div class="ax-flex-block ax-body">
+            <div class="ax-flex-col" style="padding-left: 20px;padding-top: 30px;">
+                <form class="layui-form" method="post" enctype="multipart/form-data">
+                    <div class="layui-form-item">
+                        <div class="layui-col-sm6">
+                            <label class="layui-form-label">标&nbsp&nbsp&nbsp题</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="contestName" id="title" placeholder="标题" autocomplete="off" lay-verify="required" lay-reqtext="不能为空" class="layui-input" >
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">开始时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="startTime"  placeholder="yyyy-MM-dd" lay-verify="required" lay-reqtext="不能为空">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="layui-col-sm4">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">结束时间</label>
-                            <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="endTime"  placeholder="yyyy-MM-dd" lay-verify="required" lay-reqtext="不能为空">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-col-sm4">
-                        <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <div class="layui-col-sm6">
                             <label class="layui-form-label">负责人</label>
-                            <div class="layui-input-inline">
+                            <div class="layui-input-block">
                                 <input type="text" class="layui-input" id="leader"  placeholder="负责人姓名" lay-verify="required" lay-reqtext="不能为空">
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="layui-form-item" >
-                    <@com.editorContent/>
-
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-row layui-col-space1">
-                        <div class="layui-input-block">
-                            <div class="layui-col-md3">
-                                <button type="button" class="layui-btn" id="enclosure"><i class="layui-icon"></i>上传附件</button>
-                            </div>
-                            <div class="layui-col-md3 layui-col-md-offset6">
-                                <input type="button" class="layui-btn" id="btn" value="发布" lay-submit lay-filter="*">
+                        <div class="layui-col-sm6">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">结束时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="endTime"  placeholder="yyyy-MM-dd" lay-verify="required" lay-reqtext="不能为空">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="layui-row layui-col-space1">
-                    <div class="layui-input-block">
-                        <input type="text" id="fileName" name="fileName" readonly="readonly" value="" style="height: 30px;width: 400px">
-                        <button type="button" 	class="layui-btn layui-btn-danger" id="delfile" onclick="delFile();">删除附件</button>
+                    <div class="layui-form-item" >
+                        <@com.editorContent/>
                     </div>
-                </div>
-            </form>
+                    <div class="layui-form-item">
+                        <div class="layui-row">
+                                <div class="layui-col-md9">
+                                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" id="enclosure"><i class="layui-icon"></i>上传附件</button>
+                                    <button type="button" 	class="layui-btn layui-btn-primary layui-border-red" id="delfile" onclick="delFile();">删除附件</button>
+                                    <input type="text" id="fileName" name="fileName" readonly="readonly" value="" style="width: 420px;border-style:none;">
+                                </div>
+                                <div class="layui-col-md3 ">
+                                    <input type="button" class="layui-btn" id="btn" value="发布" lay-submit lay-filter="*">
+                                </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
         </div>
     </div>
+
 </div>
 </body>
 <@com.wangEditor/>

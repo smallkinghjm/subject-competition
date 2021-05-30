@@ -131,9 +131,7 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
     //内容更新
     @Override
     @Transactional
-    public void update(long eventId, String title, int type, String content) throws BusinessException {
-        System.out.println("eventId"+eventId);
-        System.out.println(type);
+    public void update(long eventId, String title, int type, String content,String fileName) throws BusinessException {
         UpdateWrapper<Event> wrapper=new UpdateWrapper<>();
         wrapper.eq("event_id",eventId);
         Event event=new Event();
@@ -141,6 +139,9 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
         event.setType(type);
         event.setContent(content);
         event.setUpdateTime(LocalDateTime.now());
+        if (fileName!=null&&(!fileName.equals(""))){
+            event.setEnclosureName(fileName);
+        }
         int update = eventMapper.update(event, wrapper);
         if (update==0){
             throw new BusinessException(EmBusinessError.DATA_ERROR,"更新失败");
@@ -166,6 +167,20 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
         Enclosure enclosure = enclosureMapper.selectOne(new QueryWrapper<Enclosure>().eq("enclosure_name", enclosureName));
         return convertFromDataObject(event,enclosure);
     }
+
+    @Override
+    public void deleteEnclosure(String fileName) throws BusinessException {
+        UpdateWrapper<Event> wrapper=new UpdateWrapper<>();
+        wrapper.eq("enclosure_name",fileName);
+        Event event=new Event();
+        event.setEnclosureName("");
+        int update = eventMapper.update(event, wrapper);
+        if (update==0){
+            throw new BusinessException(EmBusinessError.UNKNOWN_ERROR,"删除失败");
+        }
+
+    }
+
     private EventModel convertFromDataObject(Event event,Enclosure enclosure){
         EventModel eventModel=new EventModel();
         BeanUtils.copyProperties(event,eventModel);

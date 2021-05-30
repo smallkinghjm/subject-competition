@@ -25,7 +25,8 @@ public interface IEventService extends IService<Event> {
     void delete(long eventId) throws BusinessException;
     Page<Event> getEvents(int type, int currentPage, int limit);
     List<Event> getAll(long eventId);
-    void update(long eventId,String title,int type,String content) throws BusinessException;
+    void update(long eventId,String title,int type,String content,String fileName) throws BusinessException;
     Event getEventById(long eventId) throws BusinessException;
     EventModel wonderful(long eventId) throws BusinessException;
+    void deleteEnclosure(String fileName) throws BusinessException;
 }

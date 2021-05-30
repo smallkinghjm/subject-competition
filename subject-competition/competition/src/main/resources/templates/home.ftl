@@ -74,7 +74,7 @@
                     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px; width: 80%;">
                         <legend style="font-weight: bold;">最新赛事</legend>
                     </fieldset>
-                    <ul >
+                    <ul>
                         <#list contests as contest>
                             <li style="height: 30px;">
                                 <div class="layui-row">

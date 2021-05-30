@@ -88,7 +88,7 @@ public class EnclosureServiceImpl extends ServiceImpl<EnclosureMapper, Enclosure
     }
 
     @Override
-    public boolean deleteFile(String fileName) throws BusinessException {
+    public void deleteFile(String fileName) throws BusinessException {
         String path="D:/contentFile/";
         File file=new File(path);
         if (!file.exists()){
@@ -101,11 +101,9 @@ public class EnclosureServiceImpl extends ServiceImpl<EnclosureMapper, Enclosure
             for (File f:files){
                 if (fileName.equals(f.getName())){
                     f.delete();
-                    return true;
                 }
             }
         }
-        return false;
     }
 
     @Override

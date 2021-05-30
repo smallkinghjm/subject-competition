@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.glut.competition.entity.Contest;
+import org.glut.competition.entity.Event;
 import org.glut.competition.error.BusinessException;
 import org.glut.competition.error.EmBusinessError;
 import org.glut.competition.mapper.ContestMapper;
@@ -104,6 +105,18 @@ public class ContestServiceImpl extends ServiceImpl<ContestMapper, Contest> impl
     @Override
     public void delete(long contestId) {
         contestMapper.delete(new QueryWrapper<Contest>().eq("contest_id",contestId));
+    }
+
+    @Override
+    public void deleteEnclosure(String fileName) throws BusinessException {
+        UpdateWrapper<Contest> wrapper=new UpdateWrapper<>();
+        wrapper.eq("enclosure_name",fileName);
+        Contest contest=new Contest();
+        contest.setEnclosureName("");
+        int update = contestMapper.update(contest, wrapper);
+        if (update==0){
+            throw new BusinessException(EmBusinessError.UNKNOWN_ERROR,"删除失败");
+        }
     }
 
 

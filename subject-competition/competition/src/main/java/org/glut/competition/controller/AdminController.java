@@ -104,21 +104,32 @@ public class AdminController {
         EventVO eventVO = eventService.getEventContent(eventId);
         ModelAndView modelAndView=new ModelAndView("admin/eventUpdate");
         Enclosure enclosure = new Enclosure();
-        if (eventVO.getEnclosureName()!=null){
-            enclosure = enclosureService.getEnclosure(eventVO.getEnclosureName());
-        }else {
+        if (eventVO.getEnclosureName()==null||eventVO.getEnclosureName().equals("")){
             enclosure.setEnclosureName("无附件");
+        }else {
+            enclosure = enclosureService.getEnclosure(eventVO.getEnclosureName());
         }
         modelAndView.addObject("enclosure",enclosure);
         modelAndView.addObject("event",eventVO);
         return modelAndView;
     }
 
+    @RequestMapping(value = "/wonderful/update/{eventId}")
+    public ModelAndView wonderfulShow(@PathVariable("eventId") long eventId){
+        EventVO eventVO = eventService.getEventContent(eventId);
+        ModelAndView modelAndView=new ModelAndView("admin/wonderfulUpdate");
+        Enclosure enclosure = enclosureService.getEnclosure(eventVO.getEnclosureName());
+        modelAndView.addObject("enclosure",enclosure);
+        modelAndView.addObject("wonderful",eventVO);
+        return modelAndView;
+    }
+
+
     @RequestMapping(value = "/event/saveUpdate")
     @ResponseBody
     public CommonReturnType update(@RequestParam(name = "eventId")long eventId,@RequestParam(name = "title")String title, @RequestParam(name = "type")Integer type,
-                                   @RequestParam(name = "content")String content) throws BusinessException {
-        eventService.update(eventId,title,type,content);
+                                   @RequestParam(name = "content")String content,@RequestParam(name = "fileName")String fileName) throws BusinessException {
+        eventService.update(eventId,title,type,content,fileName);
         return CommonReturnType.create();
     }
 

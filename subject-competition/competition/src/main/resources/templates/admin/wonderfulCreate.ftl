@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>新建赛事风采</title>
     <#import "../common.ftl" as com>
     <@com.depend />
     <style>
@@ -27,11 +28,11 @@
             upload.render({
                 elem: '#cover'
                 ,url: '/enclosure/cover/upload' //改成您自己的上传接口
+                ,accept:'images'
                 ,done: function(res){
                     layer.msg('上传成功');
                     layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.data.url);
                     document.getElementById("fileName").value=res.data.fileName;
-                    console.log(res);
                 }
             });
 
@@ -50,7 +51,7 @@
                     success:function (data) {
                         if (data.status=="success"){
                             alert("发布成功");
-                            window.location.href="<@path/>/admin/wonderful";
+                            window.location.href="<@com.path/>/admin/wonderful";
                         }else {
                             alert(data.data);
                         }
@@ -115,7 +116,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </body>
 <@com.wangEditor/>
