@@ -132,7 +132,6 @@
                                     <option value="">请选择发布的类型</option>
                                     <option value="0">公告通知</option>
                                     <option value="1">比赛结果</option>
-                                    <option value="2">赛事总结</option>
                                 </select>
                             </div>
                         </div>
@@ -173,7 +172,6 @@
     $(function () {
         var E = window.wangEditor
         var editor = new E('#editor')
-
         editor.config.uploadImgServer = '/file/upload'
         editor.config.uploadFileName = 'file'
         editor.config.uploadImgHooks = {

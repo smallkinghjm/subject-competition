@@ -18,7 +18,7 @@ public class UserExcelListener extends AnalysisEventListener<UserModel> {
 
     //因为SubjectExcelListener不能交给spring进行管理，需要自己new，不能注入其他对象
     //不能实现数据库操作(通过在controller层调用service时将user的service层传递进来)
-    private static final int BATCH_COUNT = 5;
+    private static final int BATCH_COUNT = 1000;
     List<User> userList=new ArrayList<>();
     List<Password> passwordList=new ArrayList<>();
 

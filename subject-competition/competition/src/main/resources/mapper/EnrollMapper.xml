@@ -32,7 +32,7 @@
     </sql>
 
     <select id="enrollView" resultMap="EnrollViewMap">
-        select enroll.*,contest.contest_name
+        select enroll.*,contest.*
         from enroll
         join contest
         on enroll.contest_id=contest.contest_id

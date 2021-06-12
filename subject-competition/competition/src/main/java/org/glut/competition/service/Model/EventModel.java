@@ -45,4 +45,6 @@ public class EventModel {
 
     private String enclosureContent;
 
+    private String userId;
+
 }

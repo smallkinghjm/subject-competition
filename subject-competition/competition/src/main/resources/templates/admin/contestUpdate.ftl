@@ -166,7 +166,7 @@
                                 <input type="text" id="fileName" name="fileName" readonly="readonly" value="" style="width: 420px;border-style:none;">
                             </div>
                             <div class="layui-col-md3">
-                                <input type="button" class="layui-btn" id="btn" value="发布" lay-submit lay-filter="*">
+                                <input type="button" class="layui-btn" id="btn" value="确认修改" lay-submit lay-filter="*">
                             </div>
                         </div>
                     </div>

@@ -2,10 +2,14 @@ package org.glut.competition.controller;
 
 
 import org.glut.competition.controller.viewobject.UserVO;
+import org.glut.competition.entity.Event;
 import org.glut.competition.error.BusinessException;
 import org.glut.competition.error.EmBusinessError;
 import org.glut.competition.response.CommonReturnType;
+import org.glut.competition.service.Model.EnrollModel;
 import org.glut.competition.service.Model.UserModel;
+import org.glut.competition.service.impl.EnrollServiceImpl;
+import org.glut.competition.service.impl.EventServiceImpl;
 import org.glut.competition.service.impl.UserServiceImpl;
 import org.glut.competition.util.EncryptionUtil;
 import org.glut.competition.validator.ValidationResult;
@@ -25,6 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import static org.glut.competition.util.VerifyCodeUtil.RANDOMCODEKEY;
@@ -52,6 +57,12 @@ public class UserController{
 
     @Autowired
     ValidatorImpl validator;
+
+    @Autowired
+    EventServiceImpl eventService;
+
+    @Autowired
+    EnrollServiceImpl enrollService;
 
     @PostMapping(value = "/checkId")
     @ResponseBody
@@ -198,12 +209,17 @@ public class UserController{
         Object is_login =this.httpServletRequest.getSession().getAttribute("IS_LOGIN");
         if (is_login==null){
             throw new BusinessException(EmBusinessError.USER_NOT_LOGIN_);
-
         }else {
             UserModel userModel =(UserModel) this.httpServletRequest.getSession().getAttribute("LOGIN_USER");
             UserVO userVO = convertFromModel(userModel);
             ModelAndView modelAndView=new ModelAndView("information");
             modelAndView.addObject("user",userVO);
+/*
+            List<Event> summarys = eventService.summary(userModel.getUserId());
+            modelAndView.addObject("summarys",summarys);
+
+            List<EnrollModel> enrollModels = enrollService.enrollView(userModel.getUserId());
+            modelAndView.addObject("enrolls",enrollModels);*/
             return modelAndView;
         }
     }
@@ -211,6 +227,7 @@ public class UserController{
     @RequestMapping("exit")
     public void exit(){
         this.httpServletRequest.getSession().removeAttribute("IS_LOGIN");
+        this.httpServletRequest.getSession().removeAttribute("LOGIN_USER");
     }
 
 

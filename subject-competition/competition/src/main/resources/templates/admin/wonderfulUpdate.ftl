@@ -108,7 +108,7 @@
                         <div class="layui-row layui-col-space1">
                             <div class="layui-input-block">
                                 <div class="layui-col-md3 layui-col-md-offset5">
-                                    <input type="button" class="layui-btn" id="btn" value="发布" lay-submit lay-filter="*">
+                                    <input type="button" class="layui-btn" id="btn" value="确认修改" lay-submit lay-filter="*">
                                 </div>
                             </div>
                         </div>

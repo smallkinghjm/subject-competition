@@ -50,8 +50,8 @@
             top: 50%;
             left: 50%;
             position: absolute;
-            margin-top: -200px;
-            margin-left: -50px;
+            margin-top: -230px;
+            margin-left: -100px;
             font-weight: bold;
             color: #000000;
         }
@@ -69,7 +69,7 @@
 <body>
 
 <div id="particles-js">
-    <p id="p">Login</p>
+    <p id="p">管理员登录</p>
     <div id="box">
         <form class="layui-form" method="post" id="from">
             <div class="layui-form-item">

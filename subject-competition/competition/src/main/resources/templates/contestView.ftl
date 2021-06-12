@@ -18,7 +18,7 @@
             <a><cite>赛事详情</cite></a>
             </p>
         </span>
-    <div class="layui-btn-container" style="float: right;">
+    <div class="layui-btn-container" style="float: right;padding-top: 20px;">
         <a href="<@com.path/>/enroll/create/${contest.contestId}" class="layui-btn layui-btn-primary layui-border-orange" target="_blank" style="font-weight: bolder;">报名参赛</a>
     </div>
     <div style="padding-top: 40px">

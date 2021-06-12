@@ -16,7 +16,11 @@
 </div>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
+    <#if type==2>
+        <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="look">查看</a>
+        <#else>
+        <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
+    </#if>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
@@ -33,6 +37,7 @@
                 <#else >
             ,title: '赛事总结数据表'
             </#if>
+            <#if type!=2>
             ,toolbar: `<div><button type="button" onclick="window.location.href='<@com.path/>/admin/event/create'"  class="layui-btn layui-btn-sm layui-btn-primary layui-border-orange" style="width: 90px;">新建</button></div>`
             ,defaultToolbar: ['filter', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 id:'refresh',
@@ -40,6 +45,8 @@
                 ,layEvent: 'REFRESH'
                 ,icon: 'layui-icon-refresh'
             }]
+            </#if>
+
             ,limits:[5,10,20,50]
             ,request:{
                 pageName:'currentPage'
@@ -79,7 +86,6 @@
 
         });
 
-
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
@@ -110,6 +116,8 @@
             } else if(obj.event === 'edit'){
                 //点击编辑按钮实现跳转编辑页面
                 $("a.layui-btn-normal").attr("href","/admin/event/update/"+data.eventId);
+            }else{
+                layer.msg('敬请期待', {icon: 6});
             }
         });
     });

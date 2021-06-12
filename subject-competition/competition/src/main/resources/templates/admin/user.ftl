@@ -82,9 +82,9 @@
             ,cols: [[
                 {field:'userId', title:'学号', width:200,sort: true,id:'userId'}
                 ,{field:'userName', title:'姓名', width:120}
-                ,{field:'faculty', title:'学院', width:180}
-                ,{field:'classA', title:'班级', width:180}
-                ,{field:'gender', title:'性别', width:80,templet: function(d){if(d.gender == 1){return '男'}else{return '女'}}}
+                ,{field:'faculty', title:'学院',sort: true, width:180}
+                ,{field:'classA', title:'班级',sort: true, width:180}
+                ,{field:'gender', title:'性别',sort: true, width:80,templet: function(d){if(d.gender == 1){return '男'}else{return '女'}}}
                 ,{title:'操作', toolbar: '#barDemo', width:150}
             ]]
             ,page: true

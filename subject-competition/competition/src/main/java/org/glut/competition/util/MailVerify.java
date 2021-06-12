@@ -12,12 +12,6 @@ public class MailVerify {
     private static Map<String, Object> resultMap = new HashMap<>();
     public static  String MAILVERIFY;
 
-/*    @GetMapping("/register")
-    public String register() {
-        return "tourist/register";
-    }*/
-
-
     public String VerifyCode(int n) {
         Random r = new Random();
         StringBuffer sb = new StringBuffer();
@@ -25,7 +19,6 @@ public class MailVerify {
             int ran1 = r.nextInt(10);
             sb.append(String.valueOf(ran1));
         }
-//        System.out.println(sb);
         return sb.toString();
     }
 

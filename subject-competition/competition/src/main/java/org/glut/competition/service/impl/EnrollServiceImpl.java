@@ -2,6 +2,7 @@ package org.glut.competition.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.glut.competition.entity.Contest;
 import org.glut.competition.entity.Enroll;
 import org.glut.competition.error.BusinessException;
 import org.glut.competition.error.EmBusinessError;
@@ -12,6 +13,8 @@ import org.glut.competition.service.Model.EnrollModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +34,10 @@ public class EnrollServiceImpl extends ServiceImpl<EnrollMapper, Enroll> impleme
     @Override
     public void create(Enroll enroll) throws BusinessException {
         //通过学号和项目编号唯一性验证防止重复报名
-        Enroll enroll1 = getEnroll(enroll.getStudentId());
+        QueryWrapper<Enroll> wrapper=new QueryWrapper<>();
+        wrapper.eq("student_id",enroll.getStudentId());
+        wrapper.eq("contest_id",enroll.getContestId());
+        Enroll enroll1 = enrollMapper.selectOne(wrapper);
         if(enroll1!=null&&enroll1.getContestId()==enroll.getContestId()){
             throw new BusinessException(EmBusinessError.DATA_ERROR,"该项目您已经报名");
         }
@@ -64,6 +70,17 @@ public class EnrollServiceImpl extends ServiceImpl<EnrollMapper, Enroll> impleme
     @Override
     public List<EnrollModel> enrollView(String studentId) {
         List<EnrollModel> enrollModels = enrollMapper.enrollView(studentId);
+        Iterator<EnrollModel> it = enrollModels.iterator();
+        while (it.hasNext()){
+            EnrollModel next = it.next();
+            Contest contest=new Contest();
+            String state = getState(next.getContest().getContestStart(), next.getContest().getContestEnd(), contest);
+            if (state=="已结束"){
+                enrollModels.remove(next);
+            }else {
+                next.getContest().setState(state);
+            }
+        }
         return enrollModels;
     }
 
@@ -75,4 +92,15 @@ public class EnrollServiceImpl extends ServiceImpl<EnrollMapper, Enroll> impleme
         enrollMapper.delete(wrapper);
     }
 
+    private String getState(LocalDate dateStart, LocalDate dateEnd, Contest contest){
+        LocalDate now = LocalDate.now();
+        if (dateStart.isAfter(now)){
+            contest.setState("未开始");
+        }else if (dateStart.isBefore(now)&&dateEnd.isAfter(now)){
+            contest.setState("进行中");
+        }else {
+            contest.setState("已结束");
+        }
+        return contest.getState();
+    }
 }

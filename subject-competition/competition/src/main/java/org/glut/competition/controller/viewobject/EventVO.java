@@ -44,4 +44,6 @@ public class EventVO {
     private String enclosureName;
 
     private String enclosureContent;
+
+    private String userId;
 }

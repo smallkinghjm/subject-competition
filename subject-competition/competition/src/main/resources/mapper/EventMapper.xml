@@ -10,12 +10,13 @@
         <result column="content" property="content" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
-        <result column="enclosure_id" property="enclosureId" />
+        <result column="enclosure_content" property="enclosureContent" />
+        <result column="user_id" property="userId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        event_id, title, type, content, create_time, update_time, enclosure_id
+        event_id, title, type, content, create_time, update_time, enclosure_name,user_id
     </sql>
 
 </mapper>

@@ -54,12 +54,11 @@
         <img src="<@path/>/images/g.jpg" style="width: 100%;height: 100%; vertical-align: middle;"/>
         <ul class="layui-nav layui-bg-red">
             <div class="layui-row">
-                <div class="layui-col-md-offset5">
+                <div class="layui-col-md-offset6">
                     <li class="layui-nav-item"><a href="<@path/>/notice">通知公告</a></li>
                     <li class="layui-nav-item"><a href="<@path/>/contest">赛事项目</a></li>
                     <li class="layui-nav-item"><a href="<@path/>/achievement">比赛结果</a></li>
                     <li class="layui-nav-item"><a href="<@path/>/wonderfuls?type=3">赛事风采</a></li>
-                    <li class="layui-nav-item"><a href="<@path/>/summary">赛事总结</a></li>
                     <li class="layui-nav-item">
                         <a href="">个人中心</a>
                         <dl class="layui-nav-child" style="z-index: 10002!important;">
@@ -149,9 +148,9 @@
         <#macro footer>
             <div class="footer">
         <span class="layui-breadcrumb" lay-separator="|">
-          <a href="">关于我们</a>
-          <a href="">问题反馈</a>
-          <a href="">帮助中心</a>
+          <a onclick="layer.msg('敬请期待', {icon: 6})">关于我们</a>
+          <a onclick="layer.msg('敬请期待', {icon: 6})">问题反馈</a>
+          <a onclick="layer.msg('敬请期待', {icon: 6})">帮助中心</a>
         </span>
             </div>
         </#macro>

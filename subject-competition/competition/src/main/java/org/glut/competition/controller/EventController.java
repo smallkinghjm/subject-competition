@@ -3,6 +3,7 @@ package org.glut.competition.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.glut.competition.controller.viewobject.EventVO;
+import org.glut.competition.controller.viewobject.UserVO;
 import org.glut.competition.entity.Contest;
 import org.glut.competition.entity.Enclosure;
 import org.glut.competition.entity.Event;
@@ -43,13 +44,16 @@ public class EventController {
     @Autowired
     ContestServiceImpl contestService;
 
+    @Autowired
+    HttpServletRequest httpServletRequest;
+
 
     //用户主页
     @RequestMapping(value = "/home")
     public ModelAndView home(){
         Page<Event> eventPage0 = eventService.getEvents(0, 1, 10);
         List<Contest> contests=contestService.contestPage(1,10).getRecords();
-        Page<Event> eventPage2 = eventService.getEvents(2, 1, 10);
+        Page<Event> eventPage2 = eventService.getEvents(1, 1, 10);
         Page<Event> carousels = eventService.getEvents(3, 1, 5);
         List<EventVO> list=new ArrayList<>();
         Iterator<Event> it = carousels.getRecords().iterator();
@@ -89,11 +93,11 @@ public class EventController {
         String enclosureName = eventVO.getEnclosureName();
         ModelAndView modelAndView=new ModelAndView("eventView");
         modelAndView.addObject("eventVO",eventVO);
-        if (enclosureName!=null){
+        if (enclosureName==null||enclosureName.equals("")){
+            modelAndView.addObject("enclosure","无附件");
+        }else {
             Enclosure enclosure = enclosureService.getEnclosure(enclosureName);
             modelAndView.addObject("enclosure",enclosure);
-        }else {
-            modelAndView.addObject("enclosure","无附件");
         }
         return modelAndView;
     }
@@ -143,6 +147,34 @@ public class EventController {
         eventService.delete(eventId);
         return CommonReturnType.create();
     }
+
+/*    @RequestMapping(value = "/user/summary")
+    public ModelAndView summary() throws BusinessException {
+        Object is_login =this.httpServletRequest.getSession().getAttribute("IS_LOGIN");
+        if (is_login==null){
+            throw new BusinessException(EmBusinessError.USER_NOT_LOGIN_);
+        }else {
+            UserModel userModel =(UserModel) this.httpServletRequest.getSession().getAttribute("LOGIN_USER");
+            Event summary = eventService.summary(userModel.getUserId());
+            ModelAndView modelAndView=new ModelAndView("summary");
+            modelAndView.addObject("summary",summary);
+            return modelAndView;
+        }
+    }*/
+
+    @RequestMapping(value = "/user/summary")
+    @ResponseBody
+    public CommonReturnType summary(@RequestParam(name = "userId")String userId,@RequestParam(name = "currentPage",defaultValue = "1",required = false)int currentPage,
+                                    @RequestParam(name = "limit",defaultValue = "5",required = false)int limit){
+        Page<Event> summary = eventService.summary(userId, currentPage, limit);
+        Map<String,Object> map=new HashMap<>();
+        map.put("currentPage",summary.getCurrent());
+        map.put("total",summary.getTotal());
+        map.put("pages",summary.getPages());
+        map.put("summary",summary.getRecords());
+        return CommonReturnType.create(map);
+    }
+
     @RequestMapping("/admin/event/create")
     public String toCreate(){
         return "/admin/eventCreate";
@@ -156,8 +188,9 @@ public class EventController {
     public String achievement(){
         return "achievement";
     }
-    @RequestMapping(value = "/summary")
-    public String summary(){
-        return "summary";
+
+    @GetMapping("/user/summary/create")
+    public String summaryCreate(){
+        return "summaryCreate";
     }
 }

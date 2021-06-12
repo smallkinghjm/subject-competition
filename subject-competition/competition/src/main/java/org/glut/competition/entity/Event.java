@@ -58,6 +58,8 @@ public class Event extends Model<Event> {
      */
     private String enclosureName;
 
+    private String userId;
+
 
     @Override
     protected Serializable pkVal() {

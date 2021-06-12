@@ -6,84 +6,97 @@
     <#import "../common.ftl" as com/>
     <@com.depend/>
     <style>
-        #box{
-            width: 500px;
-            height: 500px;
-            background-color: #ffffff;
-            position: absolute;
-            top:50%;
-            left:50%;
-            margin-top:50px;
-            margin-left:-250px;
-        }
+
         #from{
-            width: 400px;
-            height: 500px;
+            width: 500px;
+            height: 400px;
             position: absolute;
             top:50%;
             left:50%;
-            margin-top: -200px;
-            margin-left: -230px;
+            margin-top: 20px;
+            margin-left: -300px;
         }
     </style>
 </head>
-<body style="background-color: rgba(246,110,9,0.78)">
+<body>
 <div class="layui-container">
-    <div id="box">
-        <form class="layui-form" id="from" method="post">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">学&nbsp&nbsp&nbsp号</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="userId" placeholder="请输入学号" autocomplete="off" lay-verify="required|id|isExist" class="layui-input" >
+    <@com.nav2/>
+    <div class="ax-flex-row ax-admin">
+        <div>
+            <nav class="ax-flex-col">
+                <a  class="ax-close-nav-all"><span class="ax-iconfont ax-icon-left"></span></a>
+                <div class="ax-nav-header">
+                    <a  class="ax-close-nav ax-iconfont ax-icon-menu-fold"></a>
+                </div>
+                <div class="ax-flex-block ax-nav-main">
+                    <@com.admin/>
+                </div>
+            </nav>
+        </div>
+        <div class="ax-flex-block ax-body" >
+            <div class="ax-flex-col" style="padding-left: 20px;">
+                <div id="box">
+                    <div id="box">
+                        <form class="layui-form" id="from" method="post">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">学&nbsp&nbsp&nbsp号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="userId" placeholder="请输入学号" autocomplete="off" lay-verify="required|isExist" class="layui-input" >
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">姓&nbsp&nbsp&nbsp名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="userName" placeholder="请输入姓名" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">初始密码</label>
+                                <div class="layui-input-block">
+                                    <input type="password" name="password" id="password" lay-verify="required|password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">确认密码</label>
+                                <div class="layui-input-block">
+                                    <input type="password" name="checkPassword" id="checkPassword" lay-verify="required|checkPassword" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">学&nbsp&nbsp&nbsp院</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="faculty" lay-verify="required" placeholder="请输入所属学院,如:信息科学与工程学院" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">班&nbsp&nbsp&nbsp级</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="classA" lay-verify="required" placeholder="请输入所属班级，如：软件工程2017-2班" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">性&nbsp&nbsp&nbsp别</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="gender" value="0" title="男">
+                                    <input type="radio" name="gender" value="1" title="女" checked="checked">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="padding-left: 20px;">
+                                    <input type="button" class="layui-btn" id="register" value="立即注册" lay-submit lay-filter="*" >
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">姓&nbsp&nbsp&nbsp名</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="userName" placeholder="请输入姓名" lay-verify="required|name" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">初始密码</label>
-                    <div class="layui-input-block">
-                        <input type="password" name="password" id="password" lay-verify="required|password" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">确认密码</label>
-                    <div class="layui-input-block">
-                        <input type="password" name="checkPassword" id="checkPassword" lay-verify="required|checkPassword" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">学&nbsp&nbsp&nbsp院</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="faculty" lay-verify="required" placeholder="请输入所属学院,如:信息科学与工程学院" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">班&nbsp&nbsp&nbsp级</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="classA" lay-verify="required" placeholder="请输入所属班级，如：软件工程2017-2班" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">性&nbsp&nbsp&nbsp别</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="gender" value="0" title="男">
-                        <input type="radio" name="gender" value="1" title="女" checked="checked">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block" style="padding-left: 20px;">
-                        <input type="button" class="layui-btn" id="register" value="立即登录" lay-submit lay-filter="*" >
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    </div>
-                </div>
-            </form>
+            </div>
+        </div>
     </div>
 
+
 </div>
+
 
 <script>
 
@@ -112,10 +125,6 @@
         var form = layui.form;
         //自定义验证规则
         form.verify({
-            id:[/^\d{13}$/
-                ,'学号必须为13位数字'],
-            name:[/^[\u4e00-\u9fa5]*$/
-                ,'姓名必须为汉字'],
             password: [
                 /^[\S]{6,20}$/
                 ,'密码必须6到20位，且不能出现空格'],

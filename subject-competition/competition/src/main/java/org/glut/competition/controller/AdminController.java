@@ -63,7 +63,8 @@ public class AdminController {
     @RequestMapping(value = "/event/create-page")
     @ResponseBody
     public CommonReturnType create(@RequestParam(name = "title")String title, @RequestParam(name = "type")Integer type,
-                                   @RequestParam(name = "content")String content,@RequestParam(name = "enclosureName",required = false)String enclosureName){
+                                   @RequestParam(name = "content")String content,
+                                   @RequestParam(name = "enclosureName",required = false)String enclosureName){
         eventService.create(title,type,content,enclosureName);
         return CommonReturnType.create();
     }

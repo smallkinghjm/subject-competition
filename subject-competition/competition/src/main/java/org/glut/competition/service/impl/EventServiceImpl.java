@@ -14,6 +14,7 @@ import org.glut.competition.response.CommonReturnType;
 import org.glut.competition.service.IEventService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.glut.competition.service.Model.EventModel;
+import org.glut.competition.service.Model.UserModel;
 import org.glut.competition.validator.ValidatorImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,6 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
     @Autowired
     EnclosureMapper enclosureMapper;
 
-
     //创建
     @Override
     public void create(String title, int type, String content,String enclosureName) {
@@ -58,6 +58,10 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
         event.setType(type);
         if (!enclosureName.equals("")){
             event.setEnclosureName(enclosureName);
+        }
+        UserModel userModel =(UserModel) request.getSession().getAttribute("LOGIN_USER");
+        if (userModel!=null){
+            event.setUserId(userModel.getUserId());
         }
         event.setContent(content);
         event.setCreateTime(LocalDateTime.now());
@@ -179,6 +183,15 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
             throw new BusinessException(EmBusinessError.UNKNOWN_ERROR,"删除失败");
         }
 
+    }
+
+    @Override
+    public  Page<Event> summary(String userId,int currentPage,int limit) {
+        QueryWrapper<Event> wrapper=new QueryWrapper<>();
+        wrapper.eq("user_id",userId);
+        wrapper.orderByDesc("event_id");
+        Page<Event> page = eventMapper.selectPage(new Page<Event>(currentPage, limit), wrapper);
+        return page;
     }
 
     private EventModel convertFromDataObject(Event event,Enclosure enclosure){

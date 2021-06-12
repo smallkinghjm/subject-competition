@@ -9,7 +9,10 @@
         layui.use('form', function(){
             var form = layui.form;
             form.verify({
-                checkPassword:function(value) {
+                password: [
+                    /^[\S]{6,20}$/
+                    ,'密码必须6到20位，且不能出现空格']
+                ,checkPassword:function(value) {
                     if ($('input[name=newPassword]').val() !== value)
                         return '两次密码输入不一致！';
                 },
@@ -87,7 +90,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-block">
-                        <input type="password" name="password" id="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        <input type="password" name="password" id="password" lay-verify="required|password" placeholder="请输入密码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">

@@ -119,34 +119,6 @@ public class ContestServiceImpl extends ServiceImpl<ContestMapper, Contest> impl
         }
     }
 
-
-/*    private Page<ContestModel>  convertPageFromDataObject(Page<Contest> contestPage){
-        Page<ContestModel> contestModelPage=new Page<>();
-        BeanUtils.copyProperties(contestPage,contestModelPage);//在另一个方法中执行完成了selectPage操作,通过工具类复制到model中
-        System.out.println(contestModelPage.getTotal());//无错
-        List<ContestModel> records = contestModelPage.getRecords();
-        System.out.println(records);//无错
-        System.out.println(records.get(1));//无错
-        System.out.println(records.get(1).getContestId());//出错(contestId是数据库中的一个字段)java.lang.ClassCastException
-        for (ContestModel contestModel:records) {//这里出错了，records可以输出，但是不能获取当中的任何属性
-            LocalDate contestStart = contestModel.getContestStart();
-            LocalDate contestEnd = contestModel.getContestEnd();
-            String state = getState(contestStart, contestEnd, contestModel);
-            contestModel.setState(state);
-        }
-        return contestModelPage;
-    }*/
-
-
-/*    private ContestModel convertFromDataObject(Contest contest){
-        ContestModel contestModel=new ContestModel();
-        BeanUtils.copyProperties(contest,contestModel);
-        LocalDate contestStart = contest.getContestStart();
-        LocalDate contestEnd = contest.getContestEnd();
-        String state = getState(contestStart, contestEnd, contestModel);
-        contestModel.setState(state);
-        return contestModel;
-    }*/
     //根据当时间显示赛事状态
     private String getState(LocalDate dateStart,LocalDate dateEnd, Contest contest){
         LocalDate now = LocalDate.now();

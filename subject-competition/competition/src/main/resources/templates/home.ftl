@@ -41,7 +41,13 @@
                             <div class="layui-row">
                                 <div class="layui-col-sm9">
                                     <span class="layui-badge-dot"></span>
-                                    <a href="/event/${notice.eventId}" >${notice.title}</a>
+                                    <a href="/event/${notice.eventId}" >
+                                        <#if notice.title!?length gt 25>
+                                            ${notice.title?substring(0,25)}...
+                                            <#else >
+                                            ${notice.title}
+                                        </#if>
+                                        </a>
                                 </div>
                                 <div class="layui-col-sm3">
                                     <p><@com.dateFormat notice.updateTime/></p>
@@ -79,7 +85,12 @@
                             <li style="height: 30px;">
                                 <div class="layui-row">
                                     <div class="layui-col-sm9">
-                                        <a href="/contest/view/${contest.contestId}" >${contest.contestName}</a>
+                                        <a href="/contest/view/${contest.contestId}" >
+                                            <#if contest.contestName!?length gt 30>
+                                                ${contest.contestName?substring(0,30)}...
+                                            <#else >
+                                                ${contest.contestName}
+                                            </#if></a>
                                     </div>
                                     <div class="layui-col-sm3">
                                         <p>${contest.state}</p>
@@ -98,7 +109,13 @@
                             <li style="height: 30px;">
                                 <div class="layui-row">
                                     <div class="layui-col-sm9">
-                                        <a href="/event/${achievement.eventId}" >${achievement.title}</a>
+                                        <a href="/event/${achievement.eventId}" >
+                                            <#if achievement.title!?length gt 30>
+                                                ${achievement.title?substring(0,30)}...
+                                                <#else >
+                                                    ${achievement.title}
+                                            </#if>
+                                            </a>
                                     </div>
                                     <div class="layui-col-sm3">
                                         <p><@com.dateFormat achievement.updateTime/></p>

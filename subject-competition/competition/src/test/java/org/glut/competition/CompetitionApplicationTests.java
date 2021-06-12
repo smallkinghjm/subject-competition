@@ -17,7 +17,7 @@ public class CompetitionApplicationTests {
 	@Test
 	public void contextLoads() throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		EncryptionUtil encryptionUtil=new EncryptionUtil();
-		String s = encryptionUtil.enCodeByMd5("770530");
+		String s = encryptionUtil.enCodeByMd5("admin");
 		System.out.println(s);
 	}
 
